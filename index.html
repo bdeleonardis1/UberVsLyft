@@ -1,0 +1,58 @@
+<html lang="en"> 
+    <head>
+        <meta charset="utf-8"/>
+        <title>Uber Vs Lyft</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src = "do-stuff.js"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"/>
+
+    </head>
+    <body>
+        <div id = "container" style = "background-image: url('img/cars.jpg')">
+
+            <div id = "top-main">
+                <h1>Uber vs. Lyft</h1>
+            </div>
+            <div id = "page-break"></div>
+			
+			
+            <div id = "bottom-main">				
+				<form>
+					<p>
+						<label for="a" class = "requests">Start Address:</label>
+						<input id="a" class = "addresses" type="text">
+					</p>
+					<p>
+						<label for="b" class = "requests">End Address:</label>
+						<input id="b" class = "addresses" type="text">
+					</p>
+				</form>
+				
+				<button type = "button" id = "compare">Compare</button>
+				<br>
+				<br>
+				<table id = 'table'>
+					<tr>
+						<th>Comparison</th>
+						<th>Uber</th>
+						<th>Lyft</th>
+					</tr>
+					<tr>
+						<th>Price</th>
+						<td id = 'uber-price'></td>
+						<td id = 'lyft-price'></td>
+					</tr>
+					</tr>
+						<th>Time</th>
+						<td id = 'uber-time'></td>
+						<td id = 'lyft-time'></td>
+					</tr>
+				</table>
+				<h4 id = "message"></h4>
+            </div>
+            
+        </div>
+        
+    </body>
+</html>
