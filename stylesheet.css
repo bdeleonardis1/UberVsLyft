@@ -12,12 +12,13 @@ body {
     background-size:cover;
 }
 
+/*Top portion by title*/
 h1 {
     padding:0;
     margin: 0;
     border:0;
 }
-#top-main{
+#title{
     padding:0;
     margin: 0;
     border : 0;
@@ -28,11 +29,13 @@ h1 {
     background-color: rgba(40,54,92,.8);
 }
 
+/*Middle page break area*/
 #page-break{
     height:2%;
     background-color:rgba(165, 220, 241, .7);
 }
 
+/*Main area*/
 #bottom-main{
     width:100%;
     height:74%;
@@ -57,7 +60,7 @@ h1 {
     cursor:pointer;
 }
 
-
+/*input boxes*/
 form{ 
 	width:35%;
 	display: table;
@@ -89,6 +92,7 @@ input{
 	font-size: 110%;
 }
 
+/*table displaying results*/
 table, th, td{
 	border: 1px solid black;
 }
@@ -112,6 +116,7 @@ th{
 	border-collapse:collapse;
 }
 
+/*message summarizing table*/
 #message{
 	text-align:center;
 	font-size:120%;

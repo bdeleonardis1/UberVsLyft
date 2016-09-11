@@ -4,15 +4,14 @@
         <title>Uber Vs Lyft</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC9l8s6Af4zUNSbB1Mnq7gCktDY2-3AfSc"></script>
-		<script src = "do-stuff.js"></script>
+		<script src = "interact.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"/>
 
     </head>
     <body>
         <div id = "container" style = "background-image: url('img/cars.jpg')">
 
-            <div id = "top-main">
+            <div id = "title">
                 <h1>Uber vs. Lyft</h1>
             </div>
             <div id = "page-break"></div>
@@ -22,17 +21,18 @@
 				<form>
 					<p>
 						<label for="a" class = "requests">Start Address:</label>
-						<input id="a" class = "addresses" type="text">
+						<input id="address1" class = "addresses" type="text">
 					</p>
 					<p>
 						<label for="b" class = "requests">End Address:</label>
-						<input id="b" class = "addresses" type="text">
+						<input id="address2" class = "addresses" type="text">
 					</p>
 				</form>
 				
 				<button type = "button" id = "compare">Compare</button>
 				<br>
 				<br>
+				
 				<table id = 'table'>
 					<tr>
 						<th>Comparison</th>

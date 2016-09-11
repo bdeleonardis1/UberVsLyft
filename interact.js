@@ -1,9 +1,10 @@
 $(document).ready(function(){
-	var uberPrice = 10.11;
-	var lyftPrice = 8.54;
-	var uberTime = 10.00;
-	var lyftTime = 4.50;
+	var uberPrice;
+	var lyftPrice;
+	var uberTime;
+	var lyftTime;
 	
+	//Generates message that appears at the bootom of the screen
 	function getMessage(up, lp, ut, lt)
 	{
 		var mess = '';
@@ -41,6 +42,7 @@ $(document).ready(function(){
 		return mess;
 	}
 	
+	//converts address to lattitude and longitude coordinates
 	function getCoord(address, fn){
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode( { 'address': address}, function(results, status) {
@@ -50,15 +52,17 @@ $(document).ready(function(){
 		});
 	}
 	
-	var x = 2
+	//starts the proccess of getting and displaying information
 	$('#compare').click(function(){
-		address1 = $('#a').val();
-		address2 = $('#b').val();
+		address1 = $('#address1').val();
+		address2 = $('#address2').val();
 		
+		//gets start coordinates
 		getCoord(address1, function(coord){
 			var lat1 = coord.lat();
 			var lon1= coord.lng();
 			
+			//gets end coordinates
 			getCoord(address2, function(coord){
 				var lat2 = coord.lat();
 				var lon2 = coord.lng();
@@ -66,9 +70,10 @@ $(document).ready(function(){
 				// Uber API Constants
 				var uberClientId = 'Prn4y9M26YowrP9VgSSQEf-ArPHlhyeg';
 				var uberServerToken = '_IGviC8Vi1pmjOKlHVqNbY2C0zZcP61b4D5i-EiG';
-
-				getEstimatesForUserLocation();
-				function getEstimatesForUserLocation() {
+				
+				//Fills out Uber portion of chart
+				getEstimatesUber();
+				function getEstimatesUber() {
 				  $.ajax({
 					url: "https://api.uber.com/v1/estimates/price",
 					headers: {
@@ -82,7 +87,7 @@ $(document).ready(function(){
 					},
 					success: function(result) {
 					  var data = result["prices"];
-					  if(typeof data != typeof undefined){
+					  if(typeof data != typeof undefined){ //sorts by price of higher estimate
 						  data.sort(function(t0, t1){
 							  return t0.high_estimate - t1.high_estimate;
 						  });
@@ -97,8 +102,10 @@ $(document).ready(function(){
 							$('#uber-time').html(uberTime + " min");							
 							
 							var lyftCreds = 'gAAAAABX1DSP1iLtJccJ6Ci1tgbqu3irJ_6oXNOAl2w7HaVRzufWqpkJRrzkIAvwln1QHSMQNKxhVoX72oLPikSUcFeniPVwkXtZpvh10RGdMA-NDh2Y4HdajAyf_tZtSzARF5YDewKioORGj-YtB68V71FzHFjoyLEeONijdw4rZ30GsnMioec='
-							getEstimatesForLyft()
-							function getEstimatesForLyft(){
+							
+							//Fills out Lyft portion of chart
+							getEstimatesLyft() 
+							function getEstimatesLyft(){
 								$.ajax({
 									url: 'https://api.lyft.com/v1/cost',
 									headers: {
@@ -110,17 +117,18 @@ $(document).ready(function(){
 									  end_lat: lat2,
 									  end_lng: lon2
 									},
+									
 									success: function(result){
 										var data = result['cost_estimates'];
-										console.log(data);
 										if(typeof data != typeof undefined){
 										  data.sort(function(t0, t1){
 											  return t0.estimated_cost_cents_max - t1.estimated_cost_cents_max;
 										  });
+										  
 										  var shortest = data[0];
 										  lyftPrice = (shortest.estimated_cost_cents_max + shortest.estimated_cost_cents_min) / 200;
 										  lyftTime = Math.ceil(shortest.estimated_duration_seconds / 60);
-										  console.log(lyftPrice);
+										  
 										  $('#lyft-price').html("$" + lyftPrice);
 										  $('#lyft-time').html(lyftTime + " min");
 										  $('#message').text(getMessage(uberPrice, lyftPrice, uberTime, lyftTime));
