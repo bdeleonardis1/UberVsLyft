@@ -75,19 +75,46 @@ $(document).ready(function(){
 			getCoord(address2, function(coord){
 				var lat2 = coord.lat();
 				var lon2 = coord.lng();
-						
-				var up = getUp();
-				var lp = getLp();
-				var ut = getUt();
-				var lt = getLt();
 				
-				$('#table').css('visibility', 'visible');
-				$('#uber-price').html('$' + getUp())
-				$('#lyft-price').html('$' + getLp())
-				$('#uber-time').html(getUt())
-				$('#lyft-time').html(getLt())
-				
-				$('#message').text(getMessage(up, lp, ut, lt)) 
+				// Uber API Constants
+				var uberClientId = 'Prn4y9M26YowrP9VgSSQEf-ArPHlhyeg';
+				var uberServerToken = '_IGviC8Vi1pmjOKlHVqNbY2C0zZcP61b4D5i-EiG';
+
+				getEstimatesForUserLocation(lat1, lon1);
+				function getEstimatesForUserLocation(latitude,longitude) {
+				  $.ajax({
+					url: "https://api.uber.com/v1/estimates/price",
+					headers: {
+						Authorization: "Token " + uberServerToken
+					},
+					data: {
+					  start_latitude: lat1,
+					  start_longitude: lon1,
+					  end_latitude: lat2,
+					  end_longitude: lon2
+					},
+					success: function(result) {
+					  var data = result["prices"];
+					  if(typeof data != typeof undefined){
+						  data.sort(function(t0, t1){
+							  return t0.duration - t1.duration;
+						  });
+						var shortest = data[0];
+						if(typeof shortest != typeof undefined)
+						{
+							console.log(shortest);
+							uberTime = Math.ceil(shortest.duration / 60);
+							uberPrice = (shortest.high_estimate + shortest.low_estimate) / 2;
+							$('#table').css('visibility', 'visible');
+							$('#uber-price').html('$' + uberPrice)
+							$('#lyft-price').html('$' + getLp())
+							$('#uber-time').html(uberTime + " min")
+							$('#lyft-time').html(getLt())
+						}
+					  }
+					}
+				  });
+				}
 			});
 		});
 		
