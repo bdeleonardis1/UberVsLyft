@@ -57,15 +57,21 @@ $(document).ready(function(){
 		address1 = $('#address1').val();
 		address2 = $('#address2').val();
 		
+		if(address1 == '' || address2 == '')
+			alert("Please enter two valid addresses");
+		
 		//gets start coordinates
 		getCoord(address1, function(coord){
 			var lat1 = coord.lat();
 			var lon1= coord.lng();
+			console.log("lat 1" + lat1 + " " + lon1);
 			
 			//gets end coordinates
 			getCoord(address2, function(coord){
 				var lat2 = coord.lat();
 				var lon2 = coord.lng();
+				
+				console.log("lat2" + lat2 + " " + lon2);
 				
 				// Uber API Constants
 				var uberClientId = 'Prn4y9M26YowrP9VgSSQEf-ArPHlhyeg';
@@ -97,7 +103,6 @@ $(document).ready(function(){
 							uberTime = Math.ceil(shortest.duration / 60);
 							uberPrice = (shortest.high_estimate + shortest.low_estimate) / 2;
 							
-							$('#table').css('visibility', 'visible');
 							$('#uber-price').html('$' + uberPrice);
 							$('#uber-time').html(uberTime + " min");							
 							
@@ -131,6 +136,7 @@ $(document).ready(function(){
 										  
 										  $('#lyft-price').html("$" + lyftPrice);
 										  $('#lyft-time').html(lyftTime + " min");
+										  $('#table').css('visibility', 'visible');
 										  $('#message').text(getMessage(uberPrice, lyftPrice, uberTime, lyftTime));
 										}
 									}
@@ -143,7 +149,6 @@ $(document).ready(function(){
 				}
 			});
 		});
-		
 	});
 	
 	
