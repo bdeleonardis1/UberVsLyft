@@ -55,7 +55,7 @@ h1{
     background-color: rgba(112, 118, 207, 1);
 }
 
-#compare:hover{
+#compare{
     background-color: rgba(131, 152, 222, 1);
     cursor:pointer;
 }
@@ -121,5 +121,3 @@ th{
 	text-align:center;
 	font-size:120%;
 }
-
-
