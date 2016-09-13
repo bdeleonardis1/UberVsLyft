@@ -1,4 +1,4 @@
-body {
+body{
 	text-align:center;
     color: rgba(36, 21, 133, 1);
     font-family: sans-serif;
@@ -13,7 +13,7 @@ body {
 }
 
 /*Top portion by title*/
-h1 {
+h1{
     padding:0;
     margin: 0;
 }
